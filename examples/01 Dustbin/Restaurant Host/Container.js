@@ -49,7 +49,7 @@ export default class Container extends Component {
           <Bin
             key={bin.name}
             bin={bin}
-            guests={guestsByBin[bin.name]}
+            guests={guestsByBin[bin.name] || []}
             onDrop={this.handleDrop}
             isHandlingDropAction={dropToBin && dropToBin.name === bin.name}
           />
