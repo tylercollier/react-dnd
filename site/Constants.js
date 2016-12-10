@@ -110,6 +110,10 @@ export const ExamplePages = [{
       location: 'examples-dustbin-multiple-targets.html',
       title: 'Multiple Targets'
     },
+    RESTAURANT_HOST: {
+      location: 'examples-restaurant-host.html',
+      title: 'Restaurant Host'
+    },
     DUSTBIN_STRESS_TEST: {
       location: 'examples-dustbin-stress-test.html',
       title: 'Stress Test'

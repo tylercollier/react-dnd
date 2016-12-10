@@ -29,6 +29,7 @@ const Examples = {
   CHESSBOARD_TUTORIAL_APP: require('../examples/00 Chessboard/Tutorial App'),
   DUSTBIN_SINGLE_TARGET: require('../examples/01 Dustbin/Single Target'),
   DUSTBIN_MULTIPLE_TARGETS: require('../examples/01 Dustbin/Multiple Targets'),
+  RESTAURANT_HOST: require('../examples/01 Dustbin/Restaurant Host'),
   DUSTBIN_STRESS_TEST: require('../examples/01 Dustbin/Stress Test'),
   DRAG_AROUND_NAIVE: require('../examples/02 Drag Around/Naive'),
   DRAG_AROUND_CUSTOM_DRAG_LAYER: require('../examples/02 Drag Around/Custom Drag Layer'),
