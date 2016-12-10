@@ -13,7 +13,7 @@ const hideStyle = { height: 0, overflow: 'hidden' };
 
 const dustbinTarget = {
   drop(props, monitor) {
-    props.onDrop(monitor.getItem());
+    props.onDrop(monitor.getItem(), props.bin);
   },
   canDrop(props, monitor) {
     const guest = monitor.getItem();
@@ -30,6 +30,7 @@ export default class Bin extends Component {
   static propTypes = {
     bin: PropTypes.object.isRequired,
     guests: PropTypes.array.isRequired,
+    isHandlingDropAction: PropTypes.bool,
 
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
@@ -38,8 +39,8 @@ export default class Bin extends Component {
   };
 
   render() {
-    const { isOver, canDrop, connectDropTarget, bin, guests } = this.props;
-    const isActive = isOver && canDrop;
+    const { isOver, canDrop, connectDropTarget, bin, guests, isHandlingDropAction } = this.props;
+    const isActive = isHandlingDropAction || isOver && canDrop;
 
     let backgroundColor = 'lightblue';
     if (isActive) {
@@ -47,14 +48,15 @@ export default class Bin extends Component {
     } else if (canDrop) {
       backgroundColor = 'white';
     }
+    const classNames = 'canDropOverlay' + (isHandlingDropAction ? ' spin' : '');
 
     return connectDropTarget(
       <div className="bin" style={{ ...style, backgroundColor }}>
         <div className="header">{bin.name}</div>
-        <div className="guests" style={canDrop ? hideStyle : {}}>
+        <div className="guests" style={isHandlingDropAction || canDrop ? hideStyle : {}}>
           {guests.map(g => <Guest key={g.name} guest={g} />)}
         </div>
-        <div className="canDropOverlay" style={canDrop ? {} : hideStyle}>
+        <div className={classNames} style={isHandlingDropAction || canDrop ? {} : hideStyle}>
           +
         </div>
       </div>

@@ -27,7 +27,7 @@ export default class Container extends Component {
         { name: 'Ishmael', phoneNumber: '123-456-7890', binName: 'Serving' },
         { name: 'Trent', phoneNumber: '123-456-7890', binName: 'Survey' },
       ],
-      droppedBoxNames: []
+      dropToBin: null,
     };
   }
 
@@ -40,7 +40,7 @@ export default class Container extends Component {
   }
 
   render() {
-    const { bins, guests } = this.state;
+    const { bins, guests, dropToBin } = this.state;
     const guestsByBin = groupBy(guests, g => g.binName);
 
     return (
@@ -51,26 +51,34 @@ export default class Container extends Component {
             bin={bin}
             guests={guestsByBin[bin.name]}
             onDrop={this.handleDrop}
+            isHandlingDropAction={dropToBin && dropToBin.name === bin.name}
           />
         ))}
       </div>
     );
   }
 
-  handleDrop(index, item) {
-    const { name } = item;
+  handleDrop = (guest, bin) => {
+    this.setState({ dropToBin: bin });
+    this.moveGuest(guest, bin).then(() => {
+      this.setState({ dropToBin: null });
+    });
+  }
 
-    this.setState(update(this.state, {
-      dustbins: {
-        [index]: {
-          lastDroppedItem: {
-            $set: item
-          }
-        }
-      },
-      droppedBoxNames: name ? {
-        $push: [name]
-      } : {}
-    }));
+  moveGuest = (guest, bin) => {
+    const guestIndex = this.state.guests.findIndex(g => guest.name === g.name);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.setState(update(this.state, {
+          guests: {
+            [guestIndex]: {
+              binName: {
+                $set: bin.name
+              }
+            }
+          },
+        }), resolve);
+      }, 1000);
+    });
   }
 }
