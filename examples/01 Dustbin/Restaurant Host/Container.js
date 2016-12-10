@@ -45,7 +45,14 @@ export default class Container extends Component {
 
     return (
       <div style={style}>
-        {bins.map(bin => <Bin key={bin.name} bin={bin} guests={guestsByBin[bin.name]} />)}
+        {bins.map(bin => (
+          <Bin
+            key={bin.name}
+            bin={bin}
+            guests={guestsByBin[bin.name]}
+            onDrop={this.handleDrop}
+          />
+        ))}
       </div>
     );
   }

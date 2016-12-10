@@ -9,9 +9,15 @@ const style = {
   borderRadius: '5px',
 };
 
+const hideStyle = { height: 0, overflow: 'hidden' };
+
 const dustbinTarget = {
   drop(props, monitor) {
     props.onDrop(monitor.getItem());
+  },
+  canDrop(props, monitor) {
+    const guest = monitor.getItem();
+    return guest.binName !== props.bin.name;
   }
 };
 
@@ -20,7 +26,7 @@ const dustbinTarget = {
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
 }))
-export default class Dustbin extends Component {
+export default class Bin extends Component {
   static propTypes = {
     bin: PropTypes.object.isRequired,
     guests: PropTypes.array.isRequired,
@@ -28,7 +34,6 @@ export default class Dustbin extends Component {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
-    lastDroppedItem: PropTypes.object,
     onDrop: PropTypes.func.isRequired
   };
 
@@ -38,15 +43,20 @@ export default class Dustbin extends Component {
 
     let backgroundColor = 'lightblue';
     if (isActive) {
-      backgroundColor = 'darkgreen';
+      backgroundColor = 'hsl(195, 53%, 65%)';
     } else if (canDrop) {
-      backgroundColor = 'darkkhaki';
+      backgroundColor = 'white';
     }
 
     return connectDropTarget(
       <div className="bin" style={{ ...style, backgroundColor }}>
         <div className="header">{bin.name}</div>
-        {guests.map(g => <Guest key={g.name} guest={g} />)}
+        <div className="guests" style={canDrop ? hideStyle : {}}>
+          {guests.map(g => <Guest key={g.name} guest={g} />)}
+        </div>
+        <div className="canDropOverlay" style={canDrop ? {} : hideStyle}>
+          +
+        </div>
       </div>
     );
   }

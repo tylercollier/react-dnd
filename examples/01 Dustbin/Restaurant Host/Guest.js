@@ -12,9 +12,7 @@ const style = {
 
 const boxSource = {
   beginDrag(props) {
-    return {
-      name: props.name
-    };
+    return props.guest;
   }
 };
 
@@ -22,19 +20,16 @@ const boxSource = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-export default class Box extends Component {
+export default class Guest extends Component {
   static propTypes = {
     guest: PropTypes.object.isRequired,
 
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    isDropped: PropTypes.bool.isRequired
   };
 
   render() {
-    const { name, isDropped, isDragging, connectDragSource, guest } = this.props;
+    const { isDragging, connectDragSource, guest } = this.props;
     const opacity = isDragging ? 0.4 : 1;
 
     return connectDragSource(
