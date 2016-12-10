@@ -17,7 +17,7 @@ const dustbinTarget = {
   },
   canDrop(props, monitor) {
     const guest = monitor.getItem();
-    return guest.binName !== props.bin.name;
+    return guest.binId !== props.bin.id;
   }
 };
 
@@ -54,7 +54,7 @@ export default class Bin extends Component {
       <div className="bin" style={{ ...style, backgroundColor }}>
         <div className="header">{bin.name}</div>
         <div className="guests" style={isHandlingDropAction || canDrop ? hideStyle : {}}>
-          {guests.map(g => <Guest key={g.name} guest={g} />)}
+          {guests.map(g => <Guest key={g.id} guest={g} />)}
         </div>
         <div className={classNames} style={isHandlingDropAction || canDrop ? {} : hideStyle}>
           +

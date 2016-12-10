@@ -17,31 +17,23 @@ export default class Container extends Component {
     super(props);
     this.state = {
       bins: [
-        { name: 'Waiting' },
-        { name: 'Serving' },
-        { name: 'Survey' },
+        { id: 3, name: 'Waiting' },
+        { id: 9, name: 'Serving' },
+        { id: 7, name: 'Survey' },
       ],
       guests: [
-        { name: 'Joe', phoneNumber: '123-456-7890', binName: 'Waiting' },
-        { name: 'Hilary', phoneNumber: '123-456-7890', binName: 'Waiting' },
-        { name: 'Ishmael', phoneNumber: '123-456-7890', binName: 'Serving' },
-        { name: 'Trent', phoneNumber: '123-456-7890', binName: 'Survey' },
+        { id: 99, name: 'Joe', phoneNumber: '123-456-7890', binId: 3 },
+        { id: 45, name: 'Hilary', phoneNumber: '123-456-7890', binId: 3 },
+        { id: 20, name: 'Ishmael', phoneNumber: '123-456-7890', binId: 9 },
+        { id: 34, name: 'Trent', phoneNumber: '123-456-7890', binId: 7 },
       ],
       dropToBin: null,
     };
   }
 
-  componentWillMount() {
-
-  }
-
-  isDropped(boxName) {
-    return this.state.droppedBoxNames.indexOf(boxName) > -1;
-  }
-
   render() {
     const { bins, guests, dropToBin } = this.state;
-    const guestsByBin = groupBy(guests, g => g.binName);
+    const guestsByBin = groupBy(guests, g => g.binId);
 
     return (
       <div style={style}>
@@ -49,9 +41,9 @@ export default class Container extends Component {
           <Bin
             key={bin.name}
             bin={bin}
-            guests={guestsByBin[bin.name] || []}
+            guests={guestsByBin[bin.id] || []}
             onDrop={this.handleDrop}
-            isHandlingDropAction={dropToBin && dropToBin.name === bin.name}
+            isHandlingDropAction={dropToBin && dropToBin.id === bin.id}
           />
         ))}
       </div>
@@ -66,14 +58,14 @@ export default class Container extends Component {
   }
 
   moveGuest = (guest, bin) => {
-    const guestIndex = this.state.guests.findIndex(g => guest.name === g.name);
+    const guestIndex = this.state.guests.findIndex(g => guest.id === g.id);
     return new Promise(resolve => {
       setTimeout(() => {
         this.setState(update(this.state, {
           guests: {
             [guestIndex]: {
-              binName: {
-                $set: bin.name
+              binId: {
+                $set: bin.id
               }
             }
           },
