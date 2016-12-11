@@ -1,19 +1,14 @@
-React *DnD*
-=========
+# React DND demo
 
-Drag and Drop for React.
+This demo was originally created for a presentation for [Phoenix ReactJS](https://www.meetup.com/Phoenix-ReactJS).
 
-See the docs, tutorials and examples on the website:
+To view the demo:
 
-http://gaearon.github.io/react-dnd/
+1. Clone this repo
+1. `npm i`
+1. `npm i react-dnd-html5-backend`
+1. Run with `npm run start`
+1. Visit http://localhost:8080/examples-restaurant-host.html
+1. Try dragging and dropping!
 
-See the changelog on the Releases page:
-
-https://github.com/gaearon/react-dnd/releases
-
-[![build status](https://img.shields.io/travis/gaearon/react-dnd/master.svg?style=flat-square)](https://travis-ci.org/gaearon/react-dnd)
-[![npm version](https://img.shields.io/npm/v/react-dnd.svg?style=flat-square)](https://www.npmjs.com/package/react-dnd)
-[![npm downloads](https://img.shields.io/npm/dm/react-dnd.svg?style=flat-square)](https://www.npmjs.com/package/react-dnd)
-[![join chat](https://img.shields.io/badge/gitter-join%20chat-blue.svg?style=flat-square)](https://gitter.im/gaearon/react-dnd)  
-
-Big thanks to [BrowserStack](https://www.browserstack.com) for letting the maintainers use their service to debug browser issues.
+The code for this particular demo is in `examples/01 Dustbin/Restaurant Host/`.
