@@ -57,7 +57,8 @@ export default class Bin extends Component {
           {guests.map(g => <Guest key={g.id} guest={g} />)}
         </div>
         <div className={classNames} style={isHandlingDropAction || canDrop ? {} : hideStyle}>
-          +
+          {!isHandlingDropAction && '+'}
+          {isHandlingDropAction && 'DnD'}
         </div>
       </div>
     );
